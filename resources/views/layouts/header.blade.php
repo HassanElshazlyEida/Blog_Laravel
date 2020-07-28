@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Template {{$title ?? ""}}</title>
+	<title>Template {{$Settings->site_name ?? ""}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -59,7 +59,10 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-2">
-                                <div id="colorlib-logo"><a href="{{ route("home")}}">Blog <span style="color: red"> Laravel</span></a></div>
+                                <a class="nav-link " href="{{ route('interface.index') }}" >
+                                    <div id="colorlib-logo"><img src="{{ asset('images/laravel-512.png') }}" height="50" width="50" style="float:left"/>
+                                    <p  class="brand-home">{{ __('Blog') }} </p></div>
+                                </a>
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
@@ -74,6 +77,9 @@
                                             </li>
                                         @endif
                                     @else
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+                                        </li>
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -91,21 +97,8 @@
                                                 </form>
                                             </div>
                                         </li>
+
                                     @endguest
-                                   <!-- <li class="has-dropdown">
-                                        <a href="blog.html">Blog</a>
-                                        <ul class="dropdown">
-                                            <li><a href="single.html">Blog Single</a></li>
-                                            <li><a href="#">Video</a></li>
-                                            <li><a href="#">Read</a></li>
-                                            <li><a href="#">Lifestyle</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="event.html">Event</a></li>
-                                    <li><a href="travel.html">Travel</a></li>
-                                    <li class="active"><a href="about.html">About Me</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                -->
                                 </ul>
                             </div>
                         </div>

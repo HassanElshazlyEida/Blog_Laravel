@@ -2,93 +2,61 @@
     <div class="container">
         <div class="row row-pb-md">
             <div class="col-md-3">
-                <h2>Navigational</h2>
+                <h2>Settings</h2>
                 <p>
                     <ul class="colorlib-footer-links">
-                        <li><a href="#"><i class="icon-check"></i> Home</a></li>
-                        <li><a href="#"><i class="icon-check"></i> About Me</a></li>
-                        <li><a href="#"><i class="icon-check"></i> Blog</a></li>
-                        <li><a href="#"><i class="icon-check"></i> Travel</a></li>
-                        <li><a href="#"><i class="icon-check"></i> Lifestyle</a></li>
-                        <li><a href="#"><i class="icon-check"></i> Fashion</a></li>
-                        <li><a href="#"><i class="icon-check"></i> Health</a></li>
+                        <li><a href="{{route("interface.index")}}"><i class="icon-check"></i> Home</a></li>
+                        <li><a href="{{route("home")}}"><i class="icon-check"></i> Dashboard</a></li>
+                        Contact Number:<li><a href="tell:{{$Settings->contact_number ?? ''}}"><i class="icon-check"></i> {{$Settings->contact_number ?? ''}}</a></li>
+                        Contact Email:<li><a href="mailto:{{$Settings->contact_email ?? ''}}"><i class="icon-check"></i> {{$Settings->contact_email ?? ''}}</a></li>
+                        Address:<li><i class="icon-check"></i> {{$Settings->address ?? '' }}</li>
+
                     </ul>
                 </p>
             </div>
+                <div class="col-md-3">
+                    <div class="side">
+                        <h2 class="sidebar-heading">Recent Posts</h2>
+                        <div class="instagram-entry">
+                            @if(isset($recent_posts))
+                                @foreach($recent_posts as $post)
+                                    <div class="f-blog">
+                                    <a href="{{route("post.single",['id'=>$post->id,'slug'=>$post->slug])}}" class="instagram-posts text-center blog-img img-thumbnail-recents" style="border-radius:4%;background-image: url({{asset($post->featured)}})">
+                                    </a>
+                                        <div class="desc">
+                                            <h3><a href="{{route("post.single",['id'=>$post->id,'slug'=>$post->slug])}}">{{$post->title ?? ''}}</a></h3>
+                                            <p class="admin"><span>{{$post->created_at->toFormattedDateString()}}</span></p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
             <div class="col-md-3">
-                <h2>Recent Post</h2>
-                <div class="f-blog">
-                    <a href="blog.html" class="blog-img" style="background-image: url(images/blog-1.jpg);">
-                    </a>
-                    <div class="desc">
-                        <h3><a href="blog.html">Be a designer</a></h3>
-                        <p class="admin"><span>25 March 2018</span></p>
-                    </div>
-                </div>
-                <div class="f-blog">
-                    <a href="blog.html" class="blog-img" style="background-image: url(images/blog-2.jpg);">
-                    </a>
-                    <div class="desc">
-                        <h3><a href="blog.html">How to build website</a></h3>
-                        <p class="admin"><span>24 March 2018</span></p>
-                    </div>
-                </div>
-                <div class="f-blog">
-                    <a href="blog.html" class="blog-img" style="background-image: url(images/blog-3.jpg);">
-                    </a>
-                    <div class="desc">
-                        <h3><a href="blog.html">Create website</a></h3>
-                        <p class="admin"><span>23 March 2018</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h2>Archive</h2>
+                <h2>Categories</h2>
                 <p>
                     <ul class="colorlib-footer-links">
-                        <li><a href="#"><i class="icon-check"></i> February 2018</a></li>
-                        <li><a href="#"><i class="icon-check"></i> January 2018</a></li>
-                        <li><a href="#"><i class="icon-check"></i> December 2017</a></li>
-                        <li><a href="#"><i class="icon-check"></i> November 2017</a></li>
-                        <li><a href="#"><i class="icon-check"></i> October 2017</a></li>
-                        <li><a href="#"><i class="icon-check"></i> September 2017</a></li>
+                    @if(isset($categories))
+                        @foreach($categories as $category)
+                            <li>
+                                <a href="{{route("category",['category'=>$category->id])}}"><i class="icon-check"></i>{{ $category->name ?? ''}}</a>
+                            </li>
+                        @endforeach
+                    @endif
                     </ul>
                 </p>
             </div>
-            <div class="col-md-3">
-                <h2>Tags</h2>
-                <p class="tags">
-                    <span><a href="#"><i class="icon-tag"></i> Modeling</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Fashion</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Life</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Blog</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Workout</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Vacation</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Travel</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Exercise</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Health</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> News</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Model</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Women</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Animals</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Nature</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Art</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Sea</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Ocean</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Office</a></span>
-                    <span><a href="#"><i class="icon-tag"></i> Home</a></span>
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    <small class="block"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></small>
-                    <small class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-                </p>
-            </div>
+                <div class="col-md-3">
+                    <h2>Tags</h2>
+                    <p class="tags">
+                        @if(isset($tags))
+                            @foreach($tags as $tag)
+                                <span><a href="{{route("tag",['tag'=>$tag->id])}}"><i class="icon-tag"></i> {{$tag->tag ?? ''}}</a></span>
+                            @endforeach
+                        @endif
+                    </p>
+                </div>
         </div>
     </div>
 </footer>
@@ -114,7 +82,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset("js/magnific-popup-options.js")}}"></script>
 	<!-- Main -->
 	<script src="{{asset("js/main.js")}}"></script>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f1eab8e3113dbe2"></script>
 
+    <!-- JS, Popper.js, and jQuery -->
 	</body>
 </html>
 

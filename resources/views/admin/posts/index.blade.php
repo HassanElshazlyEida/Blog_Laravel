@@ -1,7 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => __('Post Page')])
+
 @section('content')
+    @include('users.partials.header', [
+        'title' => __('Hello') . ' '. auth()->user()->name,
+        'description' => __('This is Category page . You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
+        'class' => 'col-lg-7'
+])
 @if(!$posts->isEmpty())
 <div class="card card-default p-3">
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
   <div class="card-body">
       <strong>Categories Setting</strong>
   </div>
@@ -17,6 +32,9 @@
                 </th>
                 <th scope="col">
                     Title
+                </th>
+                <th scope="col">
+                    By
                 </th>
                 <th scope="col">
                     Edit
@@ -36,7 +54,9 @@
                     </td>
                     <td>
                      Post Title : {{$post->title}},<br>  Post category name : <span>{{$post->category->name}}</span><br>
-                       first post's tags : <span>{{$post->tags[0]->tag}}</span>
+                    </td>
+                    <td>
+                        <img src="@if(isset($post->user->profile->avatar)) {{asset("uploads/avatars/".$post->user->profile->avatar)}}@else {{asset("uploads/avatars/default.png")}} @endif" alt="{{$post->user->name}}"  style="border-radius:50%"  width="40" height="40"  > {{$post->user->name}}
                     </td>
                     <td>
                         <a href="{{route("post.edit",['post'=>$post->id])}}" class="btn btn-xs btn-primary">

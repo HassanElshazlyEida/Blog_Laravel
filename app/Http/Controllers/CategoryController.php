@@ -40,7 +40,7 @@ class CategoryController extends Controller
             'name'=>"required|min:3"
        ]);
         $category=Category::create($data);
-        return redirect()->route("category.index");
+        return redirect()->route("category.index")->withStatus(__('Category successfully created.'));
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoryController extends Controller
             'name'=>"required|min:3"
        ]);
         $category->update($data);
-        return redirect()->route("category.index");
+        return redirect()->route("category.index")->withStatus(__('Category successfully updated.'));
     }
 
     /**
@@ -95,6 +95,6 @@ class CategoryController extends Controller
         foreach($category->posts as $post){
             $post->forceDelete();
         }
-        return redirect()->route("category.index");
+        return redirect()->route("category.index")->withStatus(__('Profile successfully Deleted.'));
     }
 }

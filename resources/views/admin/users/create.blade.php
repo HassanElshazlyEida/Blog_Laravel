@@ -1,6 +1,12 @@
-@extends("layouts.app")
+@extends('layouts.app', ['title' => __('Create User')])
 
-@section("content")
+@section('content')
+    @include('users.partials.header', [
+        'title' => __('Hello') . ' '. auth()->user()->name,
+        'description' => __('This is page that allowed you to create new user . You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
+        'class' => 'col-lg-7'
+    ])
+
     <div class="card card-default">
         <div class="card-header">
             Create a New User

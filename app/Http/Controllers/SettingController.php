@@ -24,6 +24,6 @@ class SettingController extends Controller
         ]);
         $setting=Setting::first();
         $setting->update($data);
-        return redirect()->back();
+        return redirect()->back()->withStatus(__('Setting Page successfully updated.'));;
     }
 }

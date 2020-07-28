@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\User;
 use App\Profile;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Post;
+use App\Tag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -22,12 +27,9 @@ class UserController extends Controller
     public function index(User $model)
     {
         //return view('users.index');
+
         $users=User::all();
-        return view("admin.users.index",compact('users'));
-    }
-    public function index2(User $model) /* For view all users */
-    {
-        $users=User::all();
+
         return view("admin.users.index",compact('users'));
     }
 
@@ -59,7 +61,7 @@ class UserController extends Controller
         $user=User::create($data);
         $profile=Profile::create(['user_id'=>$user->id]);
 
-        return redirect()->route("user.index");
+        return redirect()->route("user.index")->withStatus(__('User successfully created.'));
     }
 
     /**
@@ -102,18 +104,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->id==Auth::user()->id)
+           redirect()->back();
+        $user->delete();
+        $user->profile->delete();
+        foreach($user->posts as $post){
+            $post->forceDelete();
+        }
+       return redirect()->back();
     }
     public function admin(User $user){
         $user->where('id', $user->id)->update(array('admin' =>1));
-        return redirect()->back();
+        return redirect()->back()->withStatus(__('User '.$user->name.' updated successfully as admin '));
     }
 
     public function not_admin(User $user){
         $user->where('id', $user->id)->update(array('admin' => 0));
-        return redirect()->back();
+        return redirect()->back()->withStatus(__('User '.$user->name.' updated successfully as member '));
     }
 
 

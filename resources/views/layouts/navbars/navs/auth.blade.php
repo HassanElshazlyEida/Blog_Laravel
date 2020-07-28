@@ -20,7 +20,8 @@
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+
+                            <img src="@if(isset(auth()->user()->profile->avatar)) {{asset("uploads/avatars/".auth()->user()->profile->avatar)}}@else {{asset("uploads/avatars/default.png")}} @endif" width="40" height="40" class="rounded-circle">
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
@@ -32,25 +33,22 @@
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                        <i class="ni ni-single-02"></i>
+                        <i class="ni ni-single-02 text-info"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-settings-gear-65"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-support-16"></i>
-                        <span>{{ __('Support') }}</span>
-                    </a>
+                    @if( auth()->user()->admin)
+                        <a   class="dropdown-item" href="{{ route("setting.index")}}">
+                             <i class="ni ni-settings text-info"></i> {{ __('Settings') }}
+                        </a>
+                        <a  class="dropdown-item"  href="{{ route("user.index")}}">
+                            <i class="ni ni-bullet-list-67 text-info"></i> {{ __('Users') }}
+                        </a>
+                    @endif
+
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                        <i class="ni ni-user-run"></i>
+                        <i class="ni ni-user-run text-info"></i>
                         <span>{{ __('Logout') }}</span>
                     </a>
                 </div>

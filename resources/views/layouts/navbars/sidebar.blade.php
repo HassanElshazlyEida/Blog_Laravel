@@ -5,8 +5,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+        <a class="navbar-brand pt-0 " href="{{ route('interface.index') }}" >
+            <div id="colorlib-logo"><img src="{{ asset('images/laravel-512.png') }}" height="50" width="50" />
+            <p  class="brand-home">{{ __('Blog Website') }} </p></div>
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -82,162 +83,114 @@
                     <ul class="list-group">
 
                         <li class="nav-item">
-                            <a  class="nav-link" href="{{ route("home")}}">Home</a>
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="ni ni-tv-2 text-danger"></i> {{ __('Dashboard') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('profile.edit') }}">
+                                <i class="ni ni-circle-08 text-danger"></i>  {{ __('User profile') }}
+                            </a>
                         </li>
 
                         @if(Auth::user()->admin)
                         <li class="nav-item">
-                            <a  class="nav-link"  href="{{ route("user.index")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Users') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("user.create")}}">
-                                 <i class="ni ni-tv-2 text-primary"></i> {{ __('Create New User') }}
+                            <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                                <i class="ni ni-key-25 text-success"></i>
+                                <span class="nav-link-text" style="color: #f4645f;">{{ __('Admin Settings') }}</span>
                             </a>
 
+                            <div class="collapse show" id="navbar-examples">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a  class="nav-link"  href="{{ route("user.index")}}">
+                                            <i class="ni ni-bullet-list-67 text-success"></i> {{ __('Users') }}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a   class="nav-link" href="{{ route("user.create")}}">
+                                             <i class="ni ni-circle-08 text-success"></i> {{ __('Create New User') }}
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a   class="nav-link" href="{{ route("setting.index")}}">
+                                             <i class="ni ni-settings text-success"></i> {{ __('Settings') }}
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
                         </li>
+
+
 
                         @endif
 
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("user.profile")}}">
-                                 <i class="ni ni-tv-2 text-primary"></i> {{ __('My Profile') }}
-                            </a>
 
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("category.index")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Categories') }}
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("post.index")}}">
-                                  <i class="ni ni-tv-2 text-primary"></i> {{ __('Posts') }}
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("tag.index")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Tags') }}
-                            </a>
-
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("category.create")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Create New Category') }}
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("post.create")}}">
-                                 <i class="ni ni-tv-2 text-primary"></i> {{ __('Create New Post') }}
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link"  href="{{ route("tag.create")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Create New Tag') }}
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("post.trashed")}}">
-                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Post \' Trash') }}
-                            </a>
-
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a   class="nav-link" href="{{ route("setting.index")}}">
-                                 <i class="ni ni-tv-2 text-primary"></i> {{ __('Post \'s Settings') }}
-                            </a>
-
-
-                        </li>
 
                     </ul>
                 @endif
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Laravel Examples') }}</span>
-                    </a>
-
-                    <div class="collapse show" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('User profile') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-key-25 text-info"></i> {{ __('Login') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
-                    </a>
-                </li>
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
+            <h6 class="navbar-heading text-muted">  <i class="ni ni-align-left-2"></i> &nbsp; BLog Setting</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
+                    <a   class="nav-link" href="{{ route("category.index")}}">
+                        <i class="ni ni-collection text-primary"></i> {{ __('Categories') }}
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
+                    <a   class="nav-link" href="{{ route("post.index")}}">
+                          <i class="ni ni-collection text-primary"></i> {{ __('Posts') }}
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a   class="nav-link" href="{{ route("tag.index")}}">
+                        <i class="ni ni-collection text-primary"></i> {{ __('Tags') }}
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+                    <a   class="nav-link" href="{{ route("category.create")}}">
+                        <i class="ni ni-fat-add text-primary"></i> {{ __('Create New Category') }}
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a   class="nav-link" href="{{ route("post.create")}}">
+                         <i class="ni ni-fat-add text-primary"></i> {{ __('Create New Post') }}
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a   class="nav-link"  href="{{ route("tag.create")}}">
+                        <i class="ni ni-fat-add text-primary"></i> {{ __('Create New Tag') }}
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
+                    <a   class="nav-link" href="{{ route("post.trashed")}}">
+                        <i class="ni ni-basket text-primary"></i> {{ __('Post \' Trash') }}
                     </a>
+
                 </li>
+
+
             </ul>
         </div>
     </div>

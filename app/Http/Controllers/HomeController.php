@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
+use App\Post;
+use App\User;
+use App\Category;
+use App\Setting;
+
 class HomeController extends Controller
 {
     /**
@@ -21,7 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $num_users=User::all()->count();
+        $num_categories=Category::all()->count();
+        $num_posts=Post::all()->count();
+        $num_tags=Tag::all()->count();
+        $Settings=Setting::first();
+        return view('dashboard',compact("num_users","num_categories","num_posts","num_tags","Settings"));
     }
-   
+
 }

@@ -42,7 +42,7 @@ class TagController extends Controller
         Tag::create([
             'tag'=>$request->tag
         ]);
-        return redirect()->route("tag.index");
+        return redirect()->route("tag.index")->withStatus(__('Tag successfully Created.'));
     }
 
     /**
@@ -82,7 +82,7 @@ class TagController extends Controller
         $tag->update([
             'tag'=>$request->tag
         ]);
-        return redirect()->route("tag.index");
+        return redirect()->route("tag.index")->withStatus(__('Tag successfully updated.'));;
     }
 
     /**

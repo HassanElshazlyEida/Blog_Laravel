@@ -6,6 +6,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,7 @@ class PostController extends Controller
      */
     public function index()
     {
+
        $posts=Post::all();
        return view("admin.posts.index",compact("posts"));
     }
@@ -36,14 +38,9 @@ class PostController extends Controller
      */
     public function create()
     {
+
         $categories=Category::all();
         $tags=Tag::all();
-        if (count($categories)==0 || count($tags)==0 ){
-            Session::flash("EmptyCategory","You Must have some categroies before attemping to create a post");
-            return redirect()->back();
-        }
-
-
         return view("admin.posts.create",compact("categories","tags"));
     }
 
@@ -64,10 +61,10 @@ class PostController extends Controller
         $imageName=time().".".$featured->getClientOriginalExtension();
 
         $featured->move(public_path("uploads/posts"),$imageName);
-        $Created=$post->create($data+array('slug'=>str_slug($request->title)));
+        $Created=$post->create($data+array('slug'=>str_slug($request->title),'user_id'=>Auth::id()));
         $Created->tags()->attach($request->tags);
         $this->edit_image_name($Created,$imageName);
-        return redirect()->route("post.index");
+        return redirect()->route("post.index")->withStatus(__('Post successfully Created.'));
     }
 
     protected function edit_image_name($post,$imageName){
@@ -128,7 +125,7 @@ class PostController extends Controller
 
         $updated=$post->update($data+array('slug'=>str_slug($request->title),'featured'=>$imageName));
         $post->tags()->sync($request->tags);
-        return redirect()->back();
+        return redirect()->route("post.index")->withStatus(__('Post successfully updated.'));
     }
 
     /**
@@ -140,7 +137,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->back();
+        return redirect()->back()->withStatus(__('Post successfully Trashed.'));
     }
     public function trashed(){
         $posts=Post::onlyTrashed()->get();
@@ -151,14 +148,14 @@ class PostController extends Controller
         if(!$post)
             return redirect()->back();//failed
         $post->forceDelete();
-        return redirect()->back();//success
+        return redirect()->back()->withStatus(__('Post successfully Deleted.'));;//success
     }
     public function restore($post){
         $post=$this->trash($post);
         if(!$post)
             return redirect()->back();//failed
         $post->restore();
-        return redirect()->back();//success
+        return redirect()->back()->withStatus(__('Post successfully Restored.'));;//success
     }
     protected function trash($post){
         $post = Post::withTrashed()->find($post);
@@ -178,5 +175,7 @@ class PostController extends Controller
             'category_id'=>"required",
        ]);
     }
+
+
 
 }

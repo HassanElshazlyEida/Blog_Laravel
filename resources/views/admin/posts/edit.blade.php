@@ -1,9 +1,22 @@
-@extends("layouts.app")
+@extends('layouts.app', ['title' => __('Update Post')])
 
-@section("content")
-
+@section('content')
+    @include('users.partials.header', [
+        'title' => __('Hello') . ' '. auth()->user()->name,
+        'description' => __('This is Category page . You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
+        'class' => 'col-lg-7'
+])
     @include('admin.include.errors')
     <div class="card card-default">
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('status') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <div class="card-header">
             <span>Update Category:</span><strong>{{$post->title}}</strong>
         </div>
@@ -12,7 +25,7 @@
             <form action="{{ route('post.update',["post"=>$post->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
             @method("PATCH")
-                <img class="card-img-top mb-3 img-thumbnail "  src="{{$post->featured}}" alt="{{$post->title}}">
+                <img class="card-img-top mb-3 "  src="{{$post->featured}}" alt="{{$post->title}}"height="400">
 
                 <div class="form-group  ">
                     <label for="featured">Featured Image </label>
